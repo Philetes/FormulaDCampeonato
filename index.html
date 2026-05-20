@@ -357,37 +357,39 @@
     .winner-pts span { font-size: 16px; color: var(--gris-2); font-family: 'DM Sans', sans-serif; font-weight: 400; }
 
     /* ---- Foto de piloto (con fallback a iniciales) ---- */
-    /* Wrapper que contiene img + div-iniciales superpuestos */
     .pilot-photo-wrap {
       position: relative;
       flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
     }
-    .pilot-photo-wrap img.pilot-photo {
-      display: block;
+    /* El span de iniciales ocupa todo el wrapper */
+    .pilot-photo-wrap .pilot-initials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      color: var(--blanco);
+      user-select: none;
+    }
+    /* La imagen (añadida por JS) se pone encima y ocupa todo */
+    .pilot-photo-wrap img {
+      position: absolute;
+      inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: top center;
       border-radius: 50%;
     }
-    /* El fallback (iniciales) se muestra por defecto y se oculta si la imagen carga */
-    .pilot-photo-wrap .pilot-initials {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      color: var(--blanco);
-    }
-    /* Clases de tamaño reutilizables */
-    .pilot-photo-wrap.sz-34  { width: 34px;  height: 34px;  }
-    .pilot-photo-wrap.sz-38  { width: 38px;  height: 38px;  }
-    .pilot-photo-wrap.sz-52  { width: 52px;  height: 52px;  }
-    .pilot-photo-wrap.sz-80  { width: 80px;  height: 80px;  border-radius: 50%; overflow: hidden; border: 3px solid rgba(232,0,45,0.4); }
-    .pilot-photo-wrap.sz-34 .pilot-initials  { font-size: 12px; }
-    .pilot-photo-wrap.sz-38 .pilot-initials  { font-size: 13px; }
-    .pilot-photo-wrap.sz-52 .pilot-initials  { font-size: 18px; }
-    .pilot-photo-wrap.sz-80 .pilot-initials  { font-size: 26px; }
+    /* Tamaños */
+    .pilot-photo-wrap.sz-34  { width: 34px;  height: 34px;  font-size: 12px; }
+    .pilot-photo-wrap.sz-38  { width: 38px;  height: 38px;  font-size: 13px; }
+    .pilot-photo-wrap.sz-52  { width: 52px;  height: 52px;  font-size: 18px; }
+    .pilot-photo-wrap.sz-80  { width: 80px;  height: 80px;  font-size: 26px;
+                                border: 3px solid rgba(232,0,45,0.4); }
 
     /* ---- Logo de equipo (con fallback a iniciales) ---- */
     .team-logo-wrap {
@@ -396,27 +398,32 @@
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid var(--negro-4);
-    }
-    .team-logo-wrap img.team-logo {
-      display: block;
-      width: 100%; height: 100%;
-      object-fit: contain;
-      padding: 3px;
       background: var(--negro-3);
     }
     .team-logo-wrap .team-initials {
-      position: absolute;
-      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
       color: var(--blanco);
+      user-select: none;
     }
-    .team-logo-wrap.sz-38 { width: 38px; height: 38px; }
-    .team-logo-wrap.sz-38 .team-initials { font-size: 13px; }
-    .team-logo-wrap.sz-42 { width: 42px; height: 42px; }
-    .team-logo-wrap.sz-42 .team-initials { font-size: 14px; }
+    /* La imagen se pone encima con padding para logos con fondo transparente */
+    .team-logo-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center;
+      padding: 4px;
+      border-radius: 50%;
+      background: var(--negro-3);
+    }
+    .team-logo-wrap.sz-38  { width: 38px;  height: 38px;  font-size: 13px; }
+    .team-logo-wrap.sz-42  { width: 42px;  height: 42px;  font-size: 14px; }
 
     /* Stat mini-cards */
     .stat-card {
@@ -699,11 +706,11 @@
     }
 
     /* ============================================================
-       MEJORAS
+       MEJORAS — sistema de barras de stats por componente
        ============================================================ */
     .mejoras-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
       gap: 20px;
     }
     .mejora-card {
@@ -716,18 +723,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 18px;
-    }
-    .mejora-team-avatar {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: var(--negro-3);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--blanco);
-      border: 2px solid var(--negro-4);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--negro-4);
     }
     .mejora-team-name {
       font-family: 'Barlow Condensed', sans-serif;
@@ -735,34 +733,80 @@
       font-weight: 800;
       color: var(--blanco);
     }
-    .mejora-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .mejora-item {
+    /* Contenedor de todas las barras */
+    .stat-bars-container {
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--negro-3);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--negro-4);
+      flex-direction: column;
+      gap: 9px;
     }
-    .mejora-icon {
-      font-size: 18px;
-      margin-top: 1px;
+    /* Fila de una barra */
+    .stat-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Etiqueta izquierda: nombre + nivel */
+    .stat-bar-label {
+      display: flex;
+      flex-direction: column;
+      width: 108px;
       flex-shrink: 0;
     }
-    .mejora-content {}
-    .mejora-label {
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--gris-2);
+    .stat-bar-name {
+      font-size: 12px;
       font-weight: 600;
-    }
-    .mejora-text {
-      font-size: 14px;
       color: var(--gris-1);
-      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    .stat-bar-nivel {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    /* Puntos de la barra */
+    .stat-bar-dots {
+      display: flex;
+      gap: 3px;
+      flex: 1;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    /* Punto individual */
+    .stat-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gris-3);
+      background: transparent;
+      transition: background 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+    .stat-dot.filled {
+      border-color: transparent;
+    }
+    /* Número de pts a la derecha */
+    .stat-bar-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .mejora-vacia {
+      font-size: 13px;
+      color: var(--gris-3);
+      font-style: italic;
+      padding: 8px 0;
+    }
+    /* Legacy — mantener por si se usan en otro sitio */
+    .mejora-nivel { display: inline-flex; align-items: center; gap: 4px; }
+    .nivel-star   { font-size: 11px; color: var(--amarillo); }
+    .nivel-star.empty { color: var(--gris-3); }
+    .mejora-coste { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--verde); font-weight: 600; }
+    .mejora-meta  { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .mejora-vacia {
       font-size: 13px;
       color: var(--gris-3);
@@ -1112,7 +1156,7 @@
     <section class="section" id="sec-mejoras">
       <div class="red-line"></div>
       <div class="section-title">Mejoras Técnicas</div>
-      <div class="section-desc">Upgrades y desarrollos por equipo</div>
+      <div class="section-desc">Mejoras y desarrollos por equipo</div>
       <div class="mejoras-grid" id="mejoras-grid"><!-- dinámico --></div>
     </section>
 
@@ -1171,10 +1215,11 @@
 /* ====================================================================
    CONFIGURACIÓN GENERAL
    ==================================================================== */
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYnG-fS8aDqWYWFtHjXeFY2genYwbZx5FFVSJKk3BNXLuvun60JDpZFhnZ1Fm40R9LddSXphP-F7rf/pub?gid=1288159029&single=true&output=csv';
-
-// CSV secundario: datos de mejoras técnicas por equipo
-const CSV_MEJORAS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYnG-fS8aDqWYWFtHjXeFY2genYwbZx5FFVSJKk3BNXLuvun60JDpZFhnZ1Fm40R9LddSXphP-F7rf/pub?gid=1991737112&single=true&output=csv';
+/* ============================================================
+   ID del Google Sheet — no cambies esto
+   Los gid de cada hoja se definen en fetchAndRender()
+   ============================================================ */
+const SHEET_ID = '2PACX-1vTYnG-fS8aDqWYWFtHjXeFY2genYwbZx5FFVSJKk3BNXLuvun60JDpZFhnZ1Fm40R9LddSXphP-F7rf';
 
 // Títulos de las secciones para el topbar
 const SECTION_TITLES = {
@@ -1197,9 +1242,10 @@ const CHART_COLORS = [
    ==================================================================== */
 let appState = {
   pilotos: [],        // Lista de objetos piloto
-  equipos: [],        // Lista de objetos equipo (con totales)
+  equipos: [],        // Lista de objetos equipo (clasificación)
   carreras: [],       // Nombres de las columnas de carrera
-  mejorasData: [],    // Datos del CSV secundario de mejoras
+  mejorasData: [],    // Datos del CSV de mejoras
+  finanzasData: [],   // Datos del CSV Control_Economico
   currentSection: 'inicio',
   evolutionChart: null,
   totalsChart: null,
@@ -1250,125 +1296,120 @@ function splitCSVLine(line, sep) {
 }
 
 /* ====================================================================
-   PROCESADO DE DATOS
+   PROCESADO DE DATOS — CSV PRINCIPAL
+   Separación por columna "Escuderia":
+   • Fila PILOTO  → columna Escuderia tiene valor
+   • Fila EQUIPO  → columna Escuderia vacía (nombre equipo en col "Piloto")
    ==================================================================== */
 function processData(headers, rows) {
-  // Detectar índice donde comienzan las carreras
-  // Buscamos la columna "Australia" o, si no existe, inferimos por posición (~13)
-  let raceStartIdx = headers.findIndex(h => h.toLowerCase().includes('australia'));
-  if (raceStartIdx === -1) raceStartIdx = 13; // fallback
 
-  // Las carreras van desde raceStartIdx hasta aprox col 36
-  const raceEndIdx = Math.min(36, headers.length - 1);
-  const raceHeaders = headers.slice(raceStartIdx, raceEndIdx + 1).filter(h => h !== '');
+  /* ── Parser monetario universal ── */
+  function parseMoney(val) {
+    if (val === null || val === undefined || val === '') return 0;
+    const s = String(val)
+      .replace(/[€$£\s\u00A0]/g, '')
+      .replace(/\.(?=\d{3}(?:[.,]|$))/g, '')
+      .replace(',', '.');
+    return parseFloat(s) || 0;
+  }
 
+  /* ── Localizar columnas por nombre exacto (case-insensitive) ── */
+  const find  = name => headers.find(h => h.trim().toLowerCase() === name.toLowerCase()) || '';
+  const findRe = re  => headers.find(h => re.test(h.trim())) || '';
+
+  const COL_PILOTO    = find('Piloto')    || headers[0];
+  const COL_ESCUDERIA = findRe(/^escuder[ií]a$|^escuadra$|^team$/i);
+
+  // Finanzas — nombres confirmados por el usuario
+  const COL_PRESUPUESTO = findRe(/presupuesto/i);
+  const COL_INGRESOS    = findRe(/^ingresos?(\s+totales?)?$/i);
+  const COL_GASTOS      = findRe(/^gastos?\s+totales?$/i) || findRe(/^gastos?$/i);
+  const COL_SALDO       = findRe(/saldo\s+actual/i) || findRe(/^saldo$/i);
+  const COL_DESARROLLO  = findRe(/gasto.*desarrollo|desarrollo/i);
+
+  console.log('[processData] Columnas →', {
+    COL_PILOTO, COL_ESCUDERIA,
+    COL_PRESUPUESTO, COL_INGRESOS, COL_GASTOS, COL_SALDO, COL_DESARROLLO
+  });
+
+  /* ── Detectar columnas de carrera ── */
+  const GP_KW = ['australia','bahrein','arabia','japón','japon','china','miami',
+    'mónaco','monaco','canadá','canada','españa','espana','catalunya','silverstone',
+    'austria','uk','hungría','hungria','bélgica','belgica','monza','singapur',
+    'austin','mexico','brasil','las vegas','abu dhabi','qatar','azerbai',
+    'paises bajos','italia','eeuu','sao paulo','ciudad de mexico'];
+
+  let raceStart = headers.findIndex(h => GP_KW.some(k => h.toLowerCase().includes(k)));
+  if (raceStart < 0) raceStart = 13;
+  const raceHeaders = headers.slice(raceStart).filter(h => h && h.trim() !== '');
   appState.carreras = raceHeaders;
 
-  const pilotos = [];
+  const pilotos   = [];
   const equipoMap = {};
 
   rows.forEach(row => {
-    const nombre = row['Piloto'] || row[headers[0]] || '';
-    const escuderia = row['Escuderia'] || row['Escuadra'] || row['Equipo'] || '';
+    const nombre    = (row[COL_PILOTO]    || '').trim();
+    const escuderia = (row[COL_ESCUDERIA] || '').trim();
 
-    if (!nombre) return;
+    if (!nombre || /^piloto$/i.test(nombre)) return;
 
-    // Si escudería está vacía => es fila de totales de equipo, la saltamos
-    if (!escuderia && nombre.toLowerCase() !== 'piloto') {
-      // Podría ser un totalizador de equipo, lo ignoramos como piloto
-      return;
-    }
-
-    // Leer columnas de finanzas (si existen)
-    // Limpiamos el valor: quitamos símbolos de moneda, espacios, puntos de miles
-    function parseMoney(val) {
-      if (!val) return 0;
-      // Eliminar símbolos €, $, £, espacios y puntos de miles; respetar la coma decimal
-      const clean = val.toString()
-        .replace(/[€$£\s]/g, '')
-        .replace(/\.(?=\d{3})/g, '')   // quitar puntos de miles (1.000.000 → 1000000)
-        .replace(',', '.');             // coma decimal → punto
-      return parseFloat(clean.replace(/[^\d.-]/g, '')) || 0;
-    }
-
-    const ingresos = parseMoney(row['Ingresos']);
-    const gastos   = parseMoney(row['Gastos']);
-    // Saldo: tomar directamente del CSV si existe; si no, calcular
-    const saldoRaw = row['Saldo'] || row['Saldo Actual'] || row['Balance'] || '';
-    const saldo    = saldoRaw ? parseMoney(saldoRaw) : (ingresos - gastos);
-
-    // Leer mejoras
-    const mejoras = [];
-    headers.forEach(h => {
-      if (h.toLowerCase().startsWith('mejora') || h.toLowerCase().startsWith('upgrade')) {
-        const val = row[h];
-        if (val && val.trim()) mejoras.push({ label: h, texto: val.trim() });
-      }
-    });
-
-    // Leer puntos por carrera
-    const puntosCarrera = {};
-    let totalPts = 0;
-    raceHeaders.forEach(r => {
-      const raw = row[r] || '0';
-      const pts = parseFloat(raw.replace(/[^\d.-]/g, '')) || 0;
-      puntosCarrera[r] = pts;
-      totalPts += pts;
-    });
-
-    // Leer puntos totales de la columna dedicada (si existe)
-    const ptsTotalCol = row['Total'] || row['Puntos'] || row['PTS'] || '';
-    const ptsTotal = ptsTotalCol
-      ? (parseFloat(ptsTotalCol.replace(/[^\d.-]/g, '')) || totalPts)
-      : totalPts;
-
-    const piloto = {
-      nombre,
-      escuderia,
-      ingresos,
-      gastos,
-      saldo,   // saldo directo del CSV (o calculado si no existe la columna)
-      mejoras,
-      puntosCarrera,
-      ptsTotal,
-    };
-    pilotos.push(piloto);
-
-    // Agregar al mapa de equipos
     if (escuderia) {
+      /* ── FILA DE PILOTO ── */
+      const puntosCarrera = {};
+      let totalPts = 0;
+      raceHeaders.forEach(r => {
+        const pts = parseFloat((row[r] || '').replace(/[^\d.-]/g, '')) || 0;
+        puntosCarrera[r] = pts;
+        totalPts += pts;
+      });
+      const ptsTotalRaw = row['Total'] || row['Puntos'] || row['PTS'] || row['TOTAL'] || '';
+      const ptsTotal = ptsTotalRaw
+        ? (parseFloat(String(ptsTotalRaw).replace(/[^\d.-]/g, '')) || totalPts)
+        : totalPts;
+
+      pilotos.push({ nombre, escuderia, puntosCarrera, ptsTotal });
+
       if (!equipoMap[escuderia]) {
         equipoMap[escuderia] = {
-          nombre: escuderia,
-          pilotos: [],
-          ptsTotal: 0,
-          ingresos: 0,
-          gastos: 0,
-          saldo: 0,
-          puntosCarrera: {},
-          mejoras: [],
+          nombre: escuderia, pilotos: [], ptsTotal: 0, puntosCarrera: {},
+          presupuesto: 0, ingresos: 0, gastos: 0, saldo: 0, gastoDesarrollo: 0,
         };
         raceHeaders.forEach(r => { equipoMap[escuderia].puntosCarrera[r] = 0; });
       }
       equipoMap[escuderia].pilotos.push(nombre);
       equipoMap[escuderia].ptsTotal += ptsTotal;
-      equipoMap[escuderia].ingresos += ingresos;
-      equipoMap[escuderia].gastos   += gastos;
-      equipoMap[escuderia].saldo    += piloto.saldo;
-      raceHeaders.forEach(r => {
-        equipoMap[escuderia].puntosCarrera[r] += puntosCarrera[r];
-      });
-      if (mejoras.length) {
-        equipoMap[escuderia].mejoras.push(...mejoras);
+      raceHeaders.forEach(r => { equipoMap[escuderia].puntosCarrera[r] += puntosCarrera[r]; });
+
+    } else {
+      /* ── FILA DE EQUIPO (Escuderia vacía) → finanzas ── */
+      const equipo = nombre; // el nombre del equipo está en la col "Piloto"
+      const fin = {
+        presupuesto:     parseMoney(COL_PRESUPUESTO ? row[COL_PRESUPUESTO] : ''),
+        ingresos:        parseMoney(COL_INGRESOS    ? row[COL_INGRESOS]    : ''),
+        gastos:          parseMoney(COL_GASTOS      ? row[COL_GASTOS]      : ''),
+        saldo:           parseMoney(COL_SALDO       ? row[COL_SALDO]       : ''),
+        gastoDesarrollo: parseMoney(COL_DESARROLLO  ? row[COL_DESARROLLO]  : ''),
+      };
+      console.log(`[processData] Finanzas "${equipo}":`, fin);
+
+      if (equipoMap[equipo]) {
+        Object.assign(equipoMap[equipo], fin);
+      } else {
+        equipoMap[equipo] = {
+          nombre: equipo, pilotos: [], ptsTotal: 0, puntosCarrera: {}, ...fin,
+        };
       }
     }
   });
 
-  // Ordenar pilotos por puntos descendente
   pilotos.sort((a, b) => b.ptsTotal - a.ptsTotal);
   const equipos = Object.values(equipoMap).sort((a, b) => b.ptsTotal - a.ptsTotal);
-
   appState.pilotos = pilotos;
   appState.equipos = equipos;
+
+  console.log('[processData] ✓', pilotos.length, 'pilotos |', equipos.length, 'equipos');
+  console.log('[processData] Finanzas:',
+    equipos.map(e => `${e.nombre} → saldo:${e.saldo} ing:${e.ingresos} gas:${e.gastos}`).join(' | '));
 }
 
 /* ====================================================================
@@ -1405,44 +1446,85 @@ function createAvatar(name, size = 38) {
    Si la imagen falla, muestra las iniciales como fallback.
    sizeCss: clase CSS de tamaño ej. "sz-52" o "sz-38"
    --------------------------------------------------------------- */
-function pilotPhotoHTML(nombre, sizeCss = 'sz-38') {
-  const src = `pilotos/${nombre}.png`;
-  const ini = initials(nombre);
-  const bg  = avatarColor(nombre);
-  // La img se oculta hasta que cargue; si hay error se oculta definitivamente
-  return `
-    <div class="pilot-photo-wrap ${sizeCss}">
-      <div class="pilot-initials" style="background:${bg};font-size:inherit">${ini}</div>
-      <img class="pilot-photo"
-           src="${src}"
-           alt="${nombre}"
-           loading="lazy"
-           onerror="this.style.display='none'"
-           onload="this.previousElementSibling.style.display='none';this.style.display='block'"
-           style="display:none" />
-    </div>`;
+/* ---------------------------------------------------------------
+   SISTEMA DE CARGA DE IMÁGENES
+   Estrategia: renderizamos primero las iniciales (siempre visibles),
+   luego intentamos cargar la imagen con new Image(). Si carga OK,
+   la insertamos en el DOM y ocultamos las iniciales.
+   Esto evita problemas de timing con onload/onerror en HTML strings.
+   --------------------------------------------------------------- */
+
+// Cache para no reintentar imágenes que ya sabemos que fallan
+const _imgCache = {}; // { 'ruta': true|false }
+
+/**
+ * Genera el HTML del wrapper con iniciales visibles.
+ * Después de insertar en el DOM, llama a loadImgIntoWrap() para intentar
+ * cargar la foto real.
+ * @param {string} nombre   - Nombre del piloto (también nombre del archivo)
+ * @param {string} sizeCss  - Clase de tamaño: 'sz-34' | 'sz-38' | 'sz-52' | 'sz-80'
+ * @param {string} tipo     - 'piloto' o 'equipo'
+ */
+function avatarHTML(nombre, sizeCss, tipo) {
+  const ini  = initials(nombre);
+  const bg   = avatarColor(nombre);
+  // Codificamos el nombre en el data attribute para localizarlo después del render
+  const carpeta = tipo === 'piloto' ? 'pilotos' : 'equipos';
+  const wrapClass = tipo === 'piloto' ? `pilot-photo-wrap ${sizeCss}` : `team-logo-wrap ${sizeCss}`;
+  return `<div class="${wrapClass}" data-img-src="${carpeta}/${nombre}.png" data-img-tipo="${tipo}">` +
+         `<span class="${tipo === 'piloto' ? 'pilot-initials' : 'team-initials'}" ` +
+         `style="background:${bg}">${ini}</span>` +
+         `</div>`;
 }
 
-/* ---------------------------------------------------------------
-   teamLogoHTML(equipo, sizeCss)
-   Devuelve HTML con <img> apuntando a equipos/"Equipo.png"
-   Si la imagen falla, muestra las iniciales como fallback.
-   --------------------------------------------------------------- */
-function teamLogoHTML(equipo, sizeCss = 'sz-38') {
-  const src = `equipos/${equipo}.png`;
-  const ini = initials(equipo);
-  const bg  = avatarColor(equipo);
-  return `
-    <div class="team-logo-wrap ${sizeCss}">
-      <div class="team-initials" style="background:${bg};font-size:inherit">${ini}</div>
-      <img class="team-logo"
-           src="${src}"
-           alt="${equipo}"
-           loading="lazy"
-           onerror="this.style.display='none'"
-           onload="this.previousElementSibling.style.display='none';this.style.display='block'"
-           style="display:none" />
-    </div>`;
+// Atajos semánticos
+function pilotPhotoHTML(nombre, sizeCss = 'sz-38') { return avatarHTML(nombre, sizeCss, 'piloto'); }
+function teamLogoHTML(equipo,  sizeCss = 'sz-38')  { return avatarHTML(equipo,  sizeCss, 'equipo'); }
+
+/**
+ * Recorre todos los wrappers con data-img-src en el DOM y
+ * para cada uno intenta cargar la imagen. Si tiene éxito,
+ * inserta el <img> y oculta el span de iniciales.
+ * Se llama después de cada render de sección.
+ */
+function resolveImages() {
+  document.querySelectorAll('[data-img-src]').forEach(wrap => {
+    const src  = wrap.dataset.imgSrc;
+    const tipo = wrap.dataset.imgTipo;
+    if (!src) return;
+
+    // Si ya sabemos que esta imagen no existe, no reintentar
+    if (_imgCache[src] === false) return;
+
+    // Si ya tiene una imagen cargada, no duplicar
+    if (wrap.querySelector('img')) return;
+
+    const img = new Image();
+    img.onload = () => {
+      _imgCache[src] = true;
+      // Ocultar iniciales
+      const span = wrap.querySelector('span');
+      if (span) span.style.display = 'none';
+      // Añadir imagen
+      img.style.cssText = 'display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%';
+      if (tipo === 'equipo') {
+        img.style.objectFit    = 'contain';
+        img.style.objectPosition = 'center';
+        img.style.padding      = '3px';
+        img.style.background   = 'var(--negro-3)';
+        img.style.borderRadius = '50%';
+      }
+      img.alt = src;
+      wrap.appendChild(img);
+      // Limpiar data attributes para no reprocesar
+      delete wrap.dataset.imgSrc;
+    };
+    img.onerror = () => {
+      _imgCache[src] = false; // marcar como no disponible
+      delete wrap.dataset.imgSrc;
+    };
+    img.src = src;
+  });
 }
 
 // Formatea dinero
@@ -1599,6 +1681,9 @@ function renderInicio() {
     lastLabel.textContent = 'Sin carreras disputadas aún';
     lastList.innerHTML = '<div style="color:var(--gris-2);font-size:14px;padding:12px 0">El campeonato no ha comenzado todavía.</div>';
   }
+
+  // Cargar imágenes de pilotos tras renderizar el DOM
+  resolveImages();
 }
 
 /* ====================================================================
@@ -1667,198 +1752,409 @@ function renderClasificacion() {
       </td>
     </tr>
   `).join('');
+
+  // Cargar logos de equipos y fotos de pilotos tras renderizar el DOM
+  resolveImages();
 }
 
 /* ====================================================================
    RENDER: FINANZAS
-   Lee los datos de pilotos agrupados por equipo.
-   El saldo se toma directamente de la columna "Saldo" o "Saldo Actual"
-   del CSV — NO se recalcula como ingresos - gastos, ya que el CSV puede
-   tener valores distintos por deducciones, bonificaciones, etc.
+   Muestra tarjeta por equipo con: Presupuesto Inicial, Ingresos Totales,
+   Gastos Totales, Gasto en Desarrollo y Saldo Actual (directo del CSV).
+   ==================================================================== */
+/* ====================================================================
+   RENDER: FINANZAS
+   Fuente: appState.finanzasData (CSV Control_Economico)
+   Columnas: Equipo | Presupuesto Inicial | Ingresos Totales |
+             Gastos Totales | Saldo Actual
+   Si finanzasData está vacío, intenta leer de los equipos del CSV principal.
    ==================================================================== */
 function renderFinanzas() {
-  const { equipos, pilotos } = appState;
   const grid = document.getElementById('finanzas-grid');
 
-  // Usamos equipos si existen, si no mostramos por piloto individual
-  const fuente = equipos.length > 0 ? equipos : pilotos;
+  /* ── Parser monetario ── */
+  function parseMon(val) {
+    if (!val && val !== 0) return 0;
+    return parseFloat(String(val)
+      .replace(/[€$£\s\u00A0]/g, '')
+      .replace(/\.(?=\d{3}(?:[.,]|$))/g, '')
+      .replace(',', '.')) || 0;
+  }
 
-  if (fuente.length === 0) {
-    grid.innerHTML = '<div class="error-banner">⚠️ No se encontraron datos financieros en el CSV.</div>';
+  /* ── Construir lista de equipos con datos financieros ── */
+  let items = [];
+
+  if (appState.finanzasData && appState.finanzasData.length > 0) {
+    // ── Fuente primaria: CSV Control_Economico ──
+    const keys = Object.keys(appState.finanzasData[0]);
+    console.log('[renderFinanzas] Columnas:', keys);
+
+    // Detectar columnas flexiblemente
+    const COL_EQUIPO   = keys.find(k => /^equipo$/i.test(k.trim()))                        || keys[0];
+    const COL_PRESUP   = keys.find(k => /presupuesto/i.test(k))                            || '';
+    const COL_INGRESOS = keys.find(k => /^ingresos?(\s+totales?)?$/i.test(k.trim()))       || '';
+    const COL_GASTOS   = keys.find(k => /^gastos?\s+totales?$|^gastos?$/i.test(k.trim()))  || '';
+    const COL_SALDO    = keys.find(k => /saldo\s*actual|^saldo$/i.test(k.trim()))          || '';
+
+    console.log('[renderFinanzas] Mapa →', { COL_EQUIPO, COL_PRESUP, COL_INGRESOS, COL_GASTOS, COL_SALDO });
+
+    appState.finanzasData.forEach(row => {
+      const equipo = (row[COL_EQUIPO] || '').trim();
+      if (!equipo || /^equipo$/i.test(equipo)) return;
+
+      const presup   = parseMon(row[COL_PRESUP]);
+      const ingresos = parseMon(row[COL_INGRESOS]);
+      const gastos   = parseMon(row[COL_GASTOS]);
+      const saldo    = parseMon(row[COL_SALDO]);
+
+      // Buscar pilotos del equipo en los datos principales
+      const eq = appState.equipos.find(e =>
+        e.nombre.toLowerCase().trim() === equipo.toLowerCase().trim()
+      );
+
+      items.push({
+        nombre:   equipo,
+        pilotos:  eq ? eq.pilotos : [],
+        presup, ingresos, gastos, saldo,
+      });
+    });
+  }
+
+  // ── Fallback: si no hay CSV de finanzas, mostrar equipos sin datos financieros ──
+  if (!items.length) {
+    items = appState.equipos.map(eq => ({
+      nombre:   eq.nombre,
+      pilotos:  eq.pilotos || [],
+      presup:   eq.presupuesto || 0,
+      ingresos: eq.ingresos    || 0,
+      gastos:   eq.gastos      || 0,
+      saldo:    eq.saldo       || 0,
+    }));
+  }
+
+  if (!items.length) {
+    grid.innerHTML = '<div class="error-banner">⚠️ No se encontraron datos financieros.</div>';
     return;
   }
 
-  grid.innerHTML = fuente.map(item => {
-    const nombre = item.nombre;
-    const ing = item.ingresos || 0;
-    const gas = item.gastos   || 0;
+  grid.innerHTML = items.map(item => {
+    const { nombre, pilotos, presup, ingresos, gastos, saldo } = item;
+    const positivo  = saldo >= 0;
+    const hayDatos  = !!(presup || ingresos || gastos || saldo);
+    const pilotsStr = pilotos.join(' · ');
 
-    // Prioridad: saldo directo del CSV; si es 0 y hay ingresos/gastos, calcular
-    let sal = 0;
-    if (item.saldo !== undefined && item.saldo !== 0) {
-      sal = item.saldo;
-    } else if (ing !== 0 || gas !== 0) {
-      sal = ing - gas;
-    }
-
-    const positivo = sal >= 0;
-    const pilotsText = item.pilotos ? item.pilotos.join(' · ') : '';
-
-    // Verificar si hay datos financieros reales
-    const hayDatos = (ing !== 0 || gas !== 0 || sal !== 0);
+    // Barra de presupuesto consumido
+    const consumido   = presup > 0 ? Math.min(100, ((presup - saldo) / presup) * 100) : 0;
+    const consumidoColor = consumido > 80 ? '#e8002d' : consumido > 60 ? '#f5c518' : '#00d97e';
 
     return `
       <div class="finanza-card">
+        <!-- Cabecera equipo -->
         <div class="finanza-team">
           ${teamLogoHTML(nombre, 'sz-42')}
-          ${nombre}
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--blanco)">${nombre}</div>
+            ${pilotsStr ? `<div style="font-size:11px;color:var(--gris-2);margin-top:1px">${pilotsStr}</div>` : ''}
+          </div>
         </div>
-        ${pilotsText ? `<div style="font-size:12px;color:var(--gris-2);margin-bottom:16px">${pilotsText}</div>` : ''}
+
         ${hayDatos ? `
+          <!-- Filas de datos -->
+          ${presup ? `
           <div class="finanza-row">
-            <span class="finanza-row-label">💰 Ingresos</span>
-            <span class="finanza-row-value verde">${formatMoney(ing)}</span>
+            <span class="finanza-row-label">🏦 Presupuesto Inicial</span>
+            <span class="finanza-row-value blanco">${formatMoney(presup)}</span>
+          </div>` : ''}
+          <div class="finanza-row">
+            <span class="finanza-row-label">📈 Ingresos Totales</span>
+            <span class="finanza-row-value verde">${formatMoney(ingresos)}</span>
           </div>
           <div class="finanza-row">
-            <span class="finanza-row-label">📉 Gastos</span>
-            <span class="finanza-row-value rojo">${formatMoney(gas)}</span>
+            <span class="finanza-row-label">📉 Gastos Totales</span>
+            <span class="finanza-row-value rojo">${formatMoney(gastos)}</span>
           </div>
+
+          <!-- Barra de presupuesto consumido -->
+          ${presup ? `
+          <div style="margin:14px 0 6px">
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gris-2);margin-bottom:6px">
+              <span>Presupuesto consumido</span>
+              <span style="color:${consumidoColor};font-weight:600">${consumido.toFixed(1)}%</span>
+            </div>
+            <div style="height:6px;background:var(--negro-4);border-radius:3px;overflow:hidden">
+              <div style="width:${consumido}%;height:100%;background:${consumidoColor};border-radius:3px;transition:width 0.8s ease"></div>
+            </div>
+          </div>` : ''}
+
+          <!-- Saldo destacado -->
           <div class="saldo-main ${positivo ? 'positivo' : 'negativo'}">
             <div class="label">Saldo Actual</div>
-            <div class="amount ${positivo ? 'verde' : 'rojo'}">${positivo ? '+' : ''}${formatMoney(sal)}</div>
+            <div class="amount ${positivo ? 'verde' : 'rojo'}">${positivo ? '+' : ''}${formatMoney(saldo)}</div>
           </div>
         ` : `
-          <div style="padding:20px 0;text-align:center;color:var(--gris-3);font-size:13px;font-style:italic">
-            Sin datos financieros disponibles
+          <div style="padding:24px 0;text-align:center;color:var(--gris-3);font-size:13px;font-style:italic">
+            Sin datos financieros · añade el gid de Control_Economico en el código
           </div>
         `}
-      </div>
-    `;
+      </div>`;
   }).join('');
+
+  resolveImages();
 }
 
 /* ====================================================================
-   RENDER: MEJORAS
-   Usa appState.mejorasData cargado del CSV secundario de mejoras.
-   Estructura esperada del CSV:
-     Equipo | Componente / Parte | Nivel | Coste | Descripción (aprox.)
-   Se adapta a lo que realmente exista en las columnas.
+   RENDER: MEJORAS TÉCNICAS
+   Sistema de 10 barras fijas por coche, cada una con su color y escala:
+
+   # Componente       Color         Pts base  Pts/nivel  Max pts
+   1 Neumáticos       Azul oscuro   6         +3,+3,+2   14
+   2 Frenos           Verde claro   3         +1,+2,+1    7
+   3 Caja de cambios  Esmeralda     3         +1,+2,+1    7
+   4 Carrocería       Naranja       3         +1,+2,+1    7
+   5 Motor            Rojo          3         +1,+2,+1    7
+   6 Suspensión       Violeta       2         +1,+2,+2    7
+   7 DRS              Celeste       0         +1,+1,+1    3
+   8 Frenada          Marrón        0         +1,+1,+1    3
+   9 Potencia         Amarillo      0         +1,+1,+1    3
+   10 Boxes           Gris          0         +1,+1,+1    3
+   Cada equipo tiene 2 coches (col "Coche" = 1 ó 2), cada uno
+   con sus propias mejoras. Se muestran 2 tarjetas por equipo.
    ==================================================================== */
 function renderMejoras() {
-  const { mejorasData } = appState;
+  const { mejorasData, equipos } = appState;
   const grid = document.getElementById('mejoras-grid');
 
-  // Icono según tipo de componente
-  const iconMap = {
-    motor: '🔥', engine: '🔥',
-    aerodinámica: '💨', aero: '💨',
-    suspension: '🔩', suspensión: '🔩',
-    frenos: '🛑', brake: '🛑',
-    transmision: '⚙️', transmisión: '⚙️',
-    chasis: '🏎️', chassis: '🏎️',
-    electronica: '⚡', electrónica: '⚡',
-    neumaticos: '⭕', neumáticos: '⭕',
-    default: '🔧'
-  };
+  /* ── 10 componentes con su definición completa ── */
+  const COMPONENTES = [
+    { key: 'neumaticos',      label: 'Neumáticos',      color: '#1a3a6b', base: 6, escala: [3,3,2], max: 14 },
+    { key: 'frenos',          label: 'Frenos',          color: '#7bc67e', base: 3, escala: [1,2,1], max: 7  },
+    { key: 'caja de cambios', label: 'Caja de cambios', color: '#2ecc71', base: 3, escala: [1,2,1], max: 7  },
+    { key: 'carroceria',      label: 'Carrocería',      color: '#e67e22', base: 3, escala: [1,2,1], max: 7  },
+    { key: 'motor',           label: 'Motor',           color: '#e8002d', base: 3, escala: [1,2,1], max: 7  },
+    { key: 'suspension',      label: 'Suspensión',      color: '#9b59b6', base: 2, escala: [1,2,2], max: 7  },
+    { key: 'drs',             label: 'DRS',             color: '#5dade2', base: 0, escala: [1,1,1], max: 3  },
+    { key: 'frenada',         label: 'Frenada',         color: '#7d5a3c', base: 0, escala: [1,1,1], max: 3  },
+    { key: 'potencia',        label: 'Potencia',        color: '#f5c518', base: 0, escala: [1,1,1], max: 3  },
+    { key: 'boxes',           label: 'Boxes',           color: '#95a5a6', base: 0, escala: [1,1,1], max: 3  },
+  ];
 
-  function getIcon(texto) {
-    if (!texto) return iconMap.default;
-    const t = texto.toLowerCase();
-    for (const [k, v] of Object.entries(iconMap)) {
-      if (t.includes(k)) return v;
+  /* ── Puntos activos según nivel ── */
+  function puntosActivos(comp, nivel) {
+    let pts = comp.base;
+    const n = Math.min(parseInt(nivel) || 0, comp.escala.length);
+    for (let i = 0; i < n; i++) pts += comp.escala[i];
+    return pts;
+  }
+
+  /* ── HTML de puntos de la barra ── */
+  function barraHTML(comp, nivel) {
+    const activos = puntosActivos(comp, nivel);
+    let h = '';
+    for (let i = 1; i <= comp.max; i++) {
+      const on = i <= activos;
+      h += `<span class="stat-dot${on ? ' filled' : ''}"
+              style="${on ? `background:${comp.color};box-shadow:0 0 4px ${comp.color}80;border-color:${comp.color}` : ''}">
+            </span>`;
     }
-    return iconMap.default;
+    return h;
   }
 
-  // Función para generar estrellas de nivel (max 5)
-  function starsHTML(nivel) {
-    const n = parseInt(nivel) || 0;
-    const max = 5;
-    let html = '';
-    for (let i = 1; i <= max; i++) {
-      html += `<span class="nivel-star ${i <= n ? '' : 'empty'}">★</span>`;
-    }
-    return html;
+  /* ── Parser monetario ── */
+  function parseMon(val) {
+    if (!val && val !== 0) return 0;
+    return parseFloat(String(val)
+      .replace(/[€$£\s\u00A0]/g, '')
+      .replace(/\.(?=\d{3}(?:[.,]|$))/g, '')
+      .replace(',', '.')) || 0;
   }
 
-  if (!mejorasData || mejorasData.length === 0) {
-    grid.innerHTML = `
-      <div style="grid-column:1/-1">
-        <div class="error-banner">⚠️ No se pudieron cargar los datos de mejoras del CSV secundario.</div>
-      </div>`;
-    return;
+  /* ── Normaliza nombre de componente a key interna ── */
+  function normalizeComp(raw) {
+    // Mapa de valores exactos del CSV → key interna
+    // Cubre el valor tal cual aparece en el CSV (mayúsculas incluidas)
+    const EXACT = {
+      'Neumaticos': 'neumaticos', 'Neumáticos': 'neumaticos', 'neumaticos': 'neumaticos',
+      'Frenos':     'frenos',     'freno':      'frenos',     'frenos':     'frenos',
+      'Caja de cambios': 'caja de cambios', 'Transmision': 'caja de cambios',
+      'Carroceria': 'carroceria', 'Carrocería': 'carroceria', 'Aerodinamica': 'carroceria',
+      'Motor':      'motor',
+      'Suspension': 'suspension', 'Suspensión': 'suspension',
+      'DRS':        'drs',
+      'Frenada':    'frenada',
+      'Potencia':   'potencia',
+      'Boxes':      'boxes',
+    };
+
+    // 1. Coincidencia exacta (más rápida y fiable)
+    if (EXACT[raw]) return EXACT[raw];
+
+    // 2. Fallback: minúsculas sin acentos
+    const t = raw.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    if (t === 'drs')      return 'drs';
+    if (t === 'frenada')  return 'frenada';
+    if (t === 'potencia') return 'potencia';
+    if (t === 'boxes')    return 'boxes';
+    if (t.startsWith('neumat'))  return 'neumaticos';
+    if (t === 'frenos' || t === 'freno') return 'frenos';
+    if (t.includes('caja') || t.includes('cambio')) return 'caja de cambios';
+    if (t.includes('carrocer') || t.includes('aero')) return 'carroceria';
+    if (t === 'motor') return 'motor';
+    if (t.includes('suspens')) return 'suspension';
+
+    console.warn('[normalizeComp] Sin match para:', JSON.stringify(raw));
+    return null; // desconocido → ignorar fila
   }
 
-  // Agrupar filas por equipo
-  const equipoMap = {};
-  mejorasData.forEach(row => {
-    // Detectar columna de equipo (primera columna no vacía, o columna llamada "Equipo"/"Escuderia")
-    const equipoKey = Object.keys(row).find(k =>
-      k.toLowerCase().includes('equipo') || k.toLowerCase().includes('escuderia') || k.toLowerCase().includes('team')
-    ) || Object.keys(row)[0];
+  /* ── Detectar columnas del CSV ── */
+  let mejorasPorCoche = {};
+  // Estructura: { "EQUIPO__1": { comp_key: {nivel, costeT} }, "EQUIPO__2": {...} }
 
-    const equipo = row[equipoKey] || '';
-    if (!equipo || equipo.toLowerCase() === 'equipo') return; // saltar cabeceras repetidas
+  // Solo necesitamos 4 columnas
+  if (mejorasData && mejorasData.length > 0) {
+    const keys = Object.keys(mejorasData[0]);
 
-    if (!equipoMap[equipo]) equipoMap[equipo] = [];
-    equipoMap[equipo].push(row);
+    const COL_EQUIPO     = keys.find(k => k.trim() === 'Equipo')     || keys[0];
+    const COL_COMPONENTE = keys.find(k => k.trim() === 'Componente') || keys[2];
+    const COL_NIVEL      = keys.find(k => k.trim() === 'Nivel')      || keys[3];
+    const COL_COCHE      = keys.find(k => k.trim() === 'Coche')      || keys[7];
+
+    console.log('[renderMejoras] Columnas →', { COL_EQUIPO, COL_COMPONENTE, COL_NIVEL, COL_COCHE });
+
+    // Mapa de niveles máximos por componente
+    const MAX_NIVEL = {
+      'neumaticos': 3, 'frenos': 3, 'caja de cambios': 3,
+      'carroceria': 3, 'motor': 3, 'suspension': 3,
+      'drs': 3, 'frenada': 3, 'potencia': 3, 'boxes': 3,
+    };
+
+    mejorasData.forEach((row) => {
+      const equipo     = (row[COL_EQUIPO]     || '').trim().toLowerCase();
+      const componente = (row[COL_COMPONENTE] || '').trim();
+      const coche      = (row[COL_COCHE]      || '1').trim();
+
+      if (!equipo || !componente) return;
+
+      const compKey = normalizeComp(componente);
+      if (!compKey) return;
+
+      const cocheId = `${equipo}__${coche}`;
+      if (!mejorasPorCoche[cocheId]) mejorasPorCoche[cocheId] = {};
+      if (!mejorasPorCoche[cocheId][compKey]) {
+        mejorasPorCoche[cocheId][compKey] = { nivel: 0 };
+      }
+      // Cada fila = una mejora comprada → incrementar nivel sin superar el máximo
+      const maxNivel = MAX_NIVEL[compKey] || 3;
+      if (mejorasPorCoche[cocheId][compKey].nivel < maxNivel) {
+        mejorasPorCoche[cocheId][compKey].nivel += 1;
+      }
+    });
+
+    console.log('[renderMejoras] Resultado final:');
+    Object.entries(mejorasPorCoche).forEach(([id, comps]) => {
+      console.log(' ', id, '→', Object.entries(comps).map(([k,v])=>`${k}:${v.nivel}`).join(', '));
+    });
+  }
+
+  /* ── Log detallado de lo que se procesó ── */
+  console.log('[renderMejoras] mejorasPorCoche keys:', Object.keys(mejorasPorCoche));
+  Object.entries(mejorasPorCoche).forEach(([cocheId, comps]) => {
+    console.log(`  ${cocheId}:`, Object.entries(comps).map(([k,v]) => `${k}=niv${v.nivel}`).join(', '));
   });
 
-  if (Object.keys(equipoMap).length === 0) {
-    grid.innerHTML = `<div class="error-banner">⚠️ No se encontraron equipos en el CSV de mejoras.</div>`;
+  // Normaliza un string para comparación: minúsculas + sin acentos
+  function normStr(s) {
+    return String(s || '').toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+  }
+
+  /* ── Lista de equipos ── */
+  const nombresEquipos = equipos.length
+    ? equipos.map(e => e.nombre)
+    : [...new Set(Object.keys(mejorasPorCoche).map(k => k.split('__')[0]))];
+
+  if (!nombresEquipos.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1">
+      <div class="error-banner">⚠️ No se encontraron equipos.</div></div>`;
     return;
   }
 
-  // Detectar las columnas relevantes (componente, nivel, coste, descripción)
-  const sampleRow = mejorasData[0];
-  const allKeys = Object.keys(sampleRow);
+  /* ── Construir tarjeta para un coche ── */
+  function tarjetaCocheHTML(equipo, numCoche) {
+    // Buscar la key usando comparación normalizada (sin acentos)
+    const equipoNorm = normStr(equipo);
+    const cocheId = Object.keys(mejorasPorCoche)
+      .find(k => {
+        const p = k.split('__');
+        return normStr(p[0]) === equipoNorm && p[1] === String(numCoche);
+      }) || `${equipo.toLowerCase()}__${numCoche}`;
+    const datosCoche = mejorasPorCoche[cocheId] || {};
+    const totalInvertido = Object.values(datosCoche).reduce((s, m) => s + (m.costeT || 0), 0);
 
-  // Columnas clave: intentamos detectarlas de forma flexible
-  const colComponente = allKeys.find(k => /componen|pieza|parte|component|mejora|upgrade/i.test(k)) || allKeys[1];
-  const colNivel      = allKeys.find(k => /nivel|level|tier/i.test(k));
-  const colCoste      = allKeys.find(k => /coste|costo|precio|cost|price/i.test(k));
-  const colDesc       = allKeys.find(k => /desc|detalle|detail|info|nota/i.test(k));
-
-  const cards = Object.entries(equipoMap).map(([equipo, filas]) => {
-    const itemsHTML = filas.map(row => {
-      const componente = row[colComponente] || '—';
-      const nivel      = colNivel ? row[colNivel] : '';
-      const coste      = colCoste ? row[colCoste] : '';
-      const desc       = colDesc  ? row[colDesc]  : '';
-      const icon       = getIcon(componente);
-
-      // Formatear coste si parece número
-      const costeNum = parseFloat((coste || '').replace(/[^\d.-]/g, ''));
-      const costeStr = costeNum && !isNaN(costeNum) ? formatMoney(costeNum) : (coste || '');
+    const barrasHTML = COMPONENTES.map(comp => {
+      const mejora  = datosCoche[comp.key] || { nivel: 0 };
+      const nivel   = mejora.nivel;
+      const activos = puntosActivos(comp, nivel);
 
       return `
-        <li class="mejora-item">
-          <span class="mejora-icon">${icon}</span>
-          <div class="mejora-content" style="flex:1">
-            <div class="mejora-label">${componente}</div>
-            ${desc ? `<div class="mejora-text">${desc}</div>` : ''}
-            <div class="mejora-meta">
-              ${nivel ? `<div class="mejora-nivel">${starsHTML(nivel)}<span style="font-size:11px;color:var(--gris-2);margin-left:4px">Nivel ${nivel}</span></div>` : ''}
-              ${costeStr ? `<div class="mejora-coste">💸 ${costeStr}</div>` : ''}
-            </div>
+        <div class="stat-bar-row">
+          <div class="stat-bar-label">
+            <span class="stat-bar-name">${comp.label}</span>
+            <span class="stat-bar-nivel" style="color:${comp.color}">Niv.${nivel}</span>
           </div>
-        </li>`;
+          <div class="stat-bar-dots">${barraHTML(comp, nivel)}</div>
+          <div class="stat-bar-num" style="color:${comp.color}">
+            ${activos}<span style="color:var(--gris-3)">/${comp.max}</span>
+          </div>
+        </div>`;
     }).join('');
 
     return `
       <div class="mejora-card">
         <div class="mejora-team-header">
           ${teamLogoHTML(equipo, 'sz-42')}
-          <div class="mejora-team-name">${equipo}</div>
+          <div>
+            <div class="mejora-team-name">${equipo}</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+              <span style="background:var(--negro-4);border:1px solid var(--gris-3);
+                           color:var(--gris-1);font-size:11px;font-weight:700;
+                           padding:2px 10px;border-radius:999px;letter-spacing:1px">
+                COCHE ${numCoche}
+              </span>
+              ${totalInvertido
+                ? `<span style="font-size:11px;color:var(--gris-2)">
+                     Invertido: ${formatMoney(totalInvertido)}
+                   </span>`
+                : ''}
+            </div>
+          </div>
         </div>
-        ${filas.length > 0
-          ? `<ul class="mejora-list">${itemsHTML}</ul>`
-          : '<div class="mejora-vacia">Sin mejoras registradas.</div>'
-        }
+        <div class="stat-bars-container">${barrasHTML}</div>
       </div>`;
+  }
+
+  /* ── Generar todas las tarjetas: Coche 1 y Coche 2 por equipo ──
+     Usamos comparación normalizada para evitar problemas con
+     acentos o espacios en nombres de equipo                      */
+  const cards = [];
+  nombresEquipos.forEach(equipo => {
+    // Buscar coches cuya key de equipo coincida (comparación normalizada)
+    const cochesExistentes = [...new Set(
+      Object.keys(mejorasPorCoche)
+        .filter(k => {
+          const partes = k.split('__');
+          return partes.length >= 2 &&
+                 normStr(partes[0]) === normStr(equipo);
+        })
+        .map(k => k.split('__')[1])
+        .sort()
+    )];
+
+    const coches = cochesExistentes.length ? cochesExistentes : ['1', '2'];
+    coches.forEach(num => cards.push(tarjetaCocheHTML(equipo, num)));
   });
 
   grid.innerHTML = cards.join('');
+  resolveImages();
 }
 
 /* ====================================================================
@@ -2097,47 +2393,122 @@ function initNavigation() {
 }
 
 /* ====================================================================
-   CARGA DE DATOS DESDE CSV (Google Sheets)
-   Carga en paralelo el CSV principal (pilotos/carreras/finanzas)
-   y el CSV secundario (mejoras técnicas).
+   CARGA DE CSV — 3 estrategias en cascada:
+   1. Fetch directo          (funciona desde http://)
+   2. allorigins /get JSON   (funciona desde http:// y a veces file://)
+   3. Inyección de <script>  (funciona siempre, incluso desde file://)
    ==================================================================== */
+
+/* Estrategia 3: carga via <script> tag usando jsonp.
+   Crea un callback global, inyecta un <script> que llama a una API
+   JSONP que no tiene restricciones CORS.
+   Usamos wtfismyip/corsproxy via CDN que soporta JSONP. */
+function fetchCSVviaScript(gid) {
+  return new Promise((resolve, reject) => {
+    const direct  = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${gid}&single=true&output=csv`;
+    // api.allorigins soporta callback JSONP
+    const cbName  = `_paddockCB_${gid}_${Date.now()}`;
+    const timeout = setTimeout(() => {
+      delete window[cbName];
+      script.remove();
+      reject(new Error(`Timeout JSONP gid=${gid}`));
+    }, 15000);
+
+    window[cbName] = (data) => {
+      clearTimeout(timeout);
+      delete window[cbName];
+      script.remove();
+      if (data && data.contents && data.contents.trim().length > 10) {
+        resolve(data.contents);
+      } else {
+        reject(new Error(`JSONP vacío gid=${gid}`));
+      }
+    };
+
+    const script = document.createElement('script');
+    script.src = `https://api.allorigins.win/get?url=${encodeURIComponent(direct)}&callback=${cbName}`;
+    script.onerror = () => {
+      clearTimeout(timeout);
+      delete window[cbName];
+      reject(new Error(`Script load error gid=${gid}`));
+    };
+    document.head.appendChild(script);
+  });
+}
+
+async function fetchCSV(gid) {
+  const direct  = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?gid=${gid}&single=true&output=csv`;
+
+  // ── Estrategia 1: fetch directo (funciona desde http://) ──
+  if (location.protocol !== 'file:') {
+    try {
+      const r = await fetch(direct);
+      if (r.ok) { const t = await r.text(); if (t.trim().length > 10) return t; }
+    } catch(_) {}
+  }
+
+  // ── Estrategia 2: allorigins /get via fetch ──
+  try {
+    const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(direct)}`);
+    if (r.ok) {
+      const j = await r.json();
+      if (j.contents && j.contents.trim().length > 10) return j.contents;
+    }
+  } catch(_) {}
+
+  // ── Estrategia 3: allorigins JSONP via <script> (funciona desde file://) ──
+  return fetchCSVviaScript(gid);
+}
+
 async function fetchAndRender() {
   try {
-    // Cargar ambos CSVs en paralelo para mayor velocidad
-    const [respMain, respMejoras] = await Promise.allSettled([
-      fetch(CSV_URL),
-      fetch(CSV_MEJORAS_URL)
+    const GID_MAIN     = '1288159029'; // Hoja principal: pilotos + puntos
+    const GID_MEJORAS  = '1991737112'; // Hoja: mejoras técnicas
+    const GID_FINANZAS = '519051423';  // Hoja: Control_Economico ← cambia si es necesario
+
+    const [resMain, resMejoras, resFinanzas] = await Promise.allSettled([
+      fetchCSV(GID_MAIN),
+      fetchCSV(GID_MEJORAS),
+      fetchCSV(GID_FINANZAS),
     ]);
 
-    // ---- CSV principal ----
-    if (respMain.status === 'rejected' || !respMain.value.ok) {
-      throw new Error(respMain.reason?.message || `HTTP ${respMain.value?.status}`);
-    }
-    const textMain = await respMain.value.text();
-    if (!textMain || textMain.trim().length < 10) throw new Error('El CSV principal está vacío.');
-    const { headers, rows } = parseCSV(textMain);
+    // ── CSV principal (obligatorio) ──
+    if (resMain.status === 'rejected')
+      throw new Error('CSV principal: ' + resMain.reason?.message);
+    const { headers, rows } = parseCSV(resMain.value);
     processData(headers, rows);
 
-    // ---- CSV de mejoras (no crítico: si falla, la sección mostrará aviso) ----
-    if (respMejoras.status === 'fulfilled' && respMejoras.value.ok) {
-      const textMejoras = await respMejoras.value.text();
-      if (textMejoras && textMejoras.trim().length > 10) {
-        const { rows: rowsMej } = parseCSV(textMejoras);
-        appState.mejorasData = rowsMej;
-      }
+    // ── CSV mejoras (no crítico) ──
+    if (resMejoras.status === 'fulfilled') {
+      const rawMejoras = resMejoras.value;
+      console.log('[Mejoras] Texto crudo (primeros 300 chars):', rawMejoras.substring(0, 300));
+      console.log('[Mejoras] Primeras 3 líneas:',
+        rawMejoras.split('\n').slice(0, 3).map((l,i) => `[${i}] ${l}`));
+      const { rows: r, headers: hMej } = parseCSV(rawMejoras);
+      console.log('[Mejoras] Cabeceras parseadas:', hMej);
+      console.log('[Mejoras] Filas parseadas:', r.length, '| Fila 0:', r[0], '| Fila 1:', r[1]);
+      appState.mejorasData = r;
     } else {
-      console.warn('[Paddock OS] CSV de mejoras no disponible:', respMejoras.reason || respMejoras.value?.status);
+      console.warn('[Paddock OS] Mejoras no disponibles:', resMejoras.reason?.message);
       appState.mejorasData = [];
     }
 
-    // Renderizar sección activa (inicio por defecto)
-    renderInicio();
+    // ── CSV finanzas (no crítico) ──
+    if (resFinanzas.status === 'fulfilled') {
+      const { rows: r, headers: h } = parseCSV(resFinanzas.value);
+      appState.finanzasData = r;
+      console.log('[Paddock OS] ✓ Finanzas:', r.length, 'filas | Cabeceras:', h);
+      console.log('  Fila 0:', r[0]);
+    } else {
+      console.warn('[Paddock OS] Finanzas no disponibles:', resFinanzas.reason?.message);
+      appState.finanzasData = [];
+    }
 
-    // Ocultar overlay de carga
+    renderInicio();
     document.getElementById('loading-overlay').classList.add('hidden');
 
   } catch (err) {
-    console.error('[Paddock OS] Error al cargar CSV:', err);
+    console.error('[Paddock OS] Error fatal:', err);
     showError(err.message);
   }
 }
