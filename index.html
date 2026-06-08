@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -1034,6 +1034,167 @@
       border-radius: 2px;
       margin-bottom: 20px;
     }
+    /* ============================================================
+       POPULARIDAD
+       ============================================================ */
+    .popularidad-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 900px) { .popularidad-layout { grid-template-columns: 1fr; } }
+
+    /* Ranking de pilotos */
+    .pop-ranking-list { display: flex; flex-direction: column; gap: 10px; }
+    .pop-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--negro-3);
+      border: 1px solid var(--negro-4);
+      border-radius: var(--radius-lg);
+      padding: 12px 16px;
+      transition: border-color var(--trans);
+    }
+    .pop-row:hover { border-color: var(--gris-3); }
+    .pop-pos {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+      color: var(--gris-2);
+    }
+    .pop-pos.p1 { color: var(--amarillo); }
+    .pop-pos.p2 { color: #c0c0c0; }
+    .pop-pos.p3 { color: #cd7f32; }
+    .pop-info { flex: 1; min-width: 0; }
+    .pop-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blanco);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pop-team { font-size: 11px; color: var(--gris-2); margin-top: 1px; }
+    .pop-pts-col { text-align: right; flex-shrink: 0; }
+    .pop-pts {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--rojo);
+      line-height: 1;
+    }
+    .pop-pts-label { font-size: 10px; color: var(--gris-2); letter-spacing: 0.5px; }
+    .pop-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 7px;
+    }
+    .pop-mini-metric {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--negro-4);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 11px;
+      color: var(--gris-2);
+      line-height: 1.2;
+    }
+    .pop-mini-metric strong {
+      color: var(--blanco);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .pop-apodo {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(232,0,45,0.12);
+      border: 1px solid rgba(232,0,45,0.28);
+      color: var(--blanco);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      line-height: 1.2;
+    }
+
+    /* Seguidores badge */
+    .pop-seguidores {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--gris-2);
+      margin-top: 3px;
+    }
+    .pop-seg-num { color: var(--verde); font-weight: 600; }
+    .pop-variacion {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 999px;
+    }
+    .pop-variacion.up   { background: rgba(0,217,126,0.12); color: var(--verde); }
+    .pop-variacion.down { background: rgba(232,0,45,0.12);  color: var(--rojo); }
+    .pop-variacion.same { background: var(--negro-4); color: var(--gris-2); }
+
+    /* Tabla escuderías */
+    .pop-escuderias-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .pop-escud-card {
+      background: var(--negro-2);
+      border: 1px solid var(--negro-4);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      transition: border-color var(--trans), transform var(--trans);
+    }
+    .pop-escud-card:hover { border-color: var(--gris-3); transform: translateY(-2px); }
+    .pop-escud-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .pop-escud-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--blanco);
+    }
+    .pop-escud-pts {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--rojo);
+      line-height: 1;
+    }
+    .pop-escud-seg {
+      font-size: 13px;
+      color: var(--verde);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .pop-escud-var {
+      font-size: 12px;
+      color: var(--gris-2);
+      margin-top: 2px;
+    }
   </style>
 </head>
 <body>
@@ -1073,6 +1234,9 @@
       </div>
       <div class="nav-item" data-section="graficas">
         <span class="nav-icon">📈</span> Gráficas
+      </div>
+      <div class="nav-item" data-section="popularidad">
+        <span class="nav-icon">⭐</span> Popularidad
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -1156,7 +1320,7 @@
     <section class="section" id="sec-mejoras">
       <div class="red-line"></div>
       <div class="section-title">Mejoras Técnicas</div>
-      <div class="section-desc">Mejoras y desarrollos por equipo</div>
+      <div class="section-desc">Upgrades y desarrollos por equipo</div>
       <div class="mejoras-grid" id="mejoras-grid"><!-- dinámico --></div>
     </section>
 
@@ -1184,8 +1348,53 @@
       </div>
     </section>
 
-  </main>
-</div>
+    <!-- SECCIÓN: POPULARIDAD -->
+    <section class="section" id="sec-popularidad">
+      <div class="red-line"></div>
+      <div class="section-title">Popularidad</div>
+      <div class="section-desc">Puntos de imagen, seguidores y ranking mediático</div>
+
+      <div class="popularidad-layout">
+        <!-- Ranking pilotos -->
+        <div class="card">
+          <div class="chart-title" style="margin-bottom:18px">🏅 Ranking Pilotos</div>
+          <div id="pop-ranking-list" class="pop-ranking-list"></div>
+        </div>
+        <!-- Gráfica de barras -->
+        <div class="card">
+          <div class="chart-title" style="margin-bottom:18px">📊 Popularidad</div>
+          <div class="chart-canvas-wrap" style="height:320px">
+            <canvas id="pop-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Escuderías -->
+      <div class="card">
+        <div class="chart-title" style="margin-bottom:18px">🏎️ Escuderías · Seguidores</div>
+        <div id="pop-escuderias-grid" class="pop-escuderias-grid"></div>
+      </div>
+
+      <!-- Tabla de seguidores completa -->
+      <div class="card" style="margin-top:24px">
+        <div class="chart-title" style="margin-bottom:18px">📱 Seguidores por Piloto</div>
+        <div style="overflow-x:auto">
+          <table class="standings-table" id="pop-table-seguidores">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Piloto</th>
+                <th>Equipo</th>
+                <th>Pts Imagen</th>
+                <th>Seguidores</th>
+                <th>Variación</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
 <!-- ---- BARRA INFERIOR (móvil) ---- -->
 <div id="bottombar">
@@ -1204,6 +1413,9 @@
     </div>
     <div class="bottom-nav-item" data-section="graficas">
       <span class="bnav-icon">📈</span>Gráficas
+    </div>
+    <div class="bottom-nav-item" data-section="popularidad">
+      <span class="bnav-icon">⭐</span>Popularidad
     </div>
   </div>
 </div>
@@ -1227,7 +1439,8 @@ const SECTION_TITLES = {
   clasificacion: 'Clasificación',
   finanzas: 'Finanzas',
   mejoras: 'Mejoras Técnicas',
-  graficas: 'Gráficas'
+  graficas: 'Gráficas',
+  popularidad: 'Popularidad',
 };
 
 // Colores para los gráficos (un color por piloto)
@@ -1241,14 +1454,17 @@ const CHART_COLORS = [
    ESTADO GLOBAL DE LA APLICACIÓN
    ==================================================================== */
 let appState = {
-  pilotos: [],        // Lista de objetos piloto
-  equipos: [],        // Lista de objetos equipo (clasificación)
-  carreras: [],       // Nombres de las columnas de carrera
-  mejorasData: [],    // Datos del CSV de mejoras
-  finanzasData: [],   // Datos del CSV Control_Economico
+  pilotos: [],
+  equipos: [],
+  carreras: [],
+  mejorasData: [],
+  finanzasData: [],
+  popularidadData: [],   // Datos hoja Puntos_imagen
+  valorPiData: [],       // Datos hoja Valor_PI (seguidores y variacion)
   currentSection: 'inicio',
   evolutionChart: null,
   totalsChart: null,
+  popChart: null,
   activeDriverFilter: 'todos',
 };
 
@@ -1293,6 +1509,57 @@ function splitCSVLine(line, sep) {
   }
   result.push(current);
   return result;
+}
+
+function parseCSVMatrix(text) {
+  const firstLine = text.split('\n')[0] || '';
+  const sep = (firstLine.split(';').length > firstLine.split(',').length) ? ';' : ',';
+  return text.trim().split('\n')
+    .filter(line => line.trim())
+    .map(line => splitCSVLine(line, sep).map(c => c.trim().replace(/^"|"$/g, '').trim()));
+}
+
+function parseValorPI(text) {
+  const matrix = parseCSVMatrix(text);
+  const parseNum = val => {
+    if (val === null || val === undefined || val === '') return 0;
+    return parseFloat(String(val).replace(/[^\d,.-]/g, '').replace(',', '.')) || 0;
+  };
+
+  const buildRanges = (startCol) => matrix.slice(2)
+    .map(row => ({ min: parseNum(row[startCol]), nombre: String(row[startCol + 1] || '').trim() }))
+    .filter(row => row.nombre)
+    .sort((a, b) => a.min - b.min);
+
+  const pilotoRanges = buildRanges(12); // M:N · Popularidad de Pilotos
+  const equipoRanges = buildRanges(14); // O:P · Popularidad de Escuderia
+
+  const resolveApodo = (pi, ranges) => {
+    let apodo = '';
+    ranges.forEach(r => { if (pi >= r.min) apodo = r.nombre; });
+    return apodo;
+  };
+
+  const rows = matrix.slice(2).map(row => {
+    const nombre = String(row[5] || '').trim();
+    const pi = parseNum(row[6]);
+    return {
+      nombre,
+      pi,
+      seguidores: parseNum(row[7]),
+      piAnterior: parseNum(row[8]),
+      seguidoresAnteriores: parseNum(row[9]),
+      variacion: parseNum(row[10]),
+      apodoPiloto: resolveApodo(pi, pilotoRanges),
+      apodoEquipo: resolveApodo(pi, equipoRanges),
+    };
+  }).filter(row => row.nombre && row.nombre.toLowerCase() !== 'escuderia');
+
+  rows._pilotoRanges = pilotoRanges;
+  rows._equipoRanges = equipoRanges;
+  rows.resolveApodoPiloto = pi => resolveApodo(pi, pilotoRanges);
+  rows.resolveApodoEquipo = pi => resolveApodo(pi, equipoRanges);
+  return rows;
 }
 
 /* ====================================================================
@@ -2356,9 +2623,244 @@ function renderSection(id) {
     case 'finanzas':       renderFinanzas(); break;
     case 'mejoras':        renderMejoras(); break;
     case 'graficas':       renderGraficas(); break;
+    case 'popularidad':    renderPopularidad(); break;
   }
 }
 
+/* ====================================================================
+   RENDER: POPULARIDAD
+   Estructura real del CSV (hoja Puntos_imagen):
+   Equipo | Piloto | Australia | China | ... | POLES | Total Puntos Imagen
+   Una columna por GP + poles + total acumulado.
+   ==================================================================== */
+function renderPopularidad() {
+  const { popularidadData, valorPiData } = appState;
+
+  const listEl   = document.getElementById('pop-ranking-list');
+  const gridEl   = document.getElementById('pop-escuderias-grid');
+  const tbodyEl  = document.querySelector('#pop-table-seguidores tbody');
+
+  if (!popularidadData || !popularidadData.length) {
+    listEl.innerHTML = '<div class="error-banner">Datos de popularidad no disponibles.</div>';
+    gridEl.innerHTML = '';
+    tbodyEl.innerHTML = '';
+    return;
+  }
+
+  const keys = Object.keys(popularidadData[0]);
+  const norm = str => String(str || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
+  const COL_EQUIPO = keys.find(k => norm(k) === 'equipo') || keys[0];
+  const COL_PILOTO = keys.find(k => norm(k) === 'piloto') || keys[1];
+  const COL_TOTAL  = keys.find(k => norm(k).includes('total')) || '';
+  const COL_POLES  = keys.find(k => /^poles?$/.test(norm(k))) || '';
+
+  const GP_COLS = keys.filter(k =>
+    k !== COL_EQUIPO && k !== COL_PILOTO &&
+    k !== COL_TOTAL  && k !== COL_POLES &&
+    String(k || '').trim() !== ''
+  );
+
+  function parseNum(v) {
+    if (v === null || v === undefined || v === '') return 0;
+    const clean = String(v).replace(/[^\d,.-]/g, '').replace(',', '.');
+    return parseFloat(clean) || 0;
+  }
+
+  function rowTotal(row) {
+    const fromTotal = COL_TOTAL ? parseNum(row[COL_TOTAL]) : 0;
+    if (fromTotal) return fromTotal;
+    return GP_COLS.reduce((s, c) => s + parseNum(row[c]), 0) + parseNum(row[COL_POLES]);
+  }
+
+  const rows = popularidadData.map(row => ({
+    raw: row,
+    equipo: String(row[COL_EQUIPO] || '').trim(),
+    piloto: String(row[COL_PILOTO] || '').trim(),
+    total: rowTotal(row),
+    poles: parseNum(row[COL_POLES]),
+    puntosCarrera: Object.fromEntries(GP_COLS.map(c => [c, parseNum(row[c])])),
+  })).filter(r => r.equipo);
+
+  const ultimaCarrera = GP_COLS.slice().reverse().find(c =>
+    rows.some(r => (r.puntosCarrera[c] || 0) > 0)
+  ) || '';
+
+  const valorMap = new Map((valorPiData || []).map(row => [norm(row.nombre), row]));
+  const estimateFollowers = pi => Math.round((200000 * Math.pow(1.08, pi)) / 1000) * 1000;
+  const formatFollowers = value => Math.round(value || 0).toLocaleString('es-ES');
+  const formatDelta = value => {
+    const rounded = Math.round(value || 0);
+    if (rounded > 0) return `+${rounded.toLocaleString('es-ES')}`;
+    if (rounded < 0) return rounded.toLocaleString('es-ES');
+    return '0';
+  };
+  const deltaClass = value => value > 0 ? 'up' : value < 0 ? 'down' : 'same';
+
+  function enrichPopularity(item, keyName, tipo = 'piloto') {
+    const fromValor = valorMap.get(norm(keyName));
+    const lastGpPts = ultimaCarrera ? (item.puntosCarrera[ultimaCarrera] || 0) : 0;
+    const pi = fromValor ? fromValor.pi : item.total;
+    const piAnterior = fromValor ? fromValor.piAnterior : Math.max(0, pi - lastGpPts);
+    const seguidores = fromValor ? fromValor.seguidores : estimateFollowers(pi);
+    const seguidoresAnteriores = fromValor ? fromValor.seguidoresAnteriores : estimateFollowers(piAnterior);
+    const variacion = fromValor ? fromValor.variacion : seguidores - seguidoresAnteriores;
+    const apodo = tipo === 'equipo'
+      ? (fromValor?.apodoEquipo || valorPiData.resolveApodoEquipo?.(pi) || '')
+      : (fromValor?.apodoPiloto || valorPiData.resolveApodoPiloto?.(pi) || '');
+    return { ...item, pi, piAnterior, seguidores, seguidoresAnteriores, variacion, apodo };
+  }
+
+  const pilotos = rows
+    .filter(r => r.piloto)
+    .map(r => enrichPopularity(r, r.piloto, 'piloto'))
+    .sort((a, b) => b.seguidores - a.seguidores || b.total - a.total);
+
+  let escuderias = rows
+    .filter(r => !r.piloto)
+    .map(r => enrichPopularity({
+      nombre: r.equipo,
+      equipo: r.equipo,
+      pts: r.total,
+      total: r.total,
+      poles: r.poles,
+      puntosCarrera: r.puntosCarrera,
+      pilotos: pilotos.filter(p => p.equipo === r.equipo).map(p => p.piloto),
+    }, r.equipo, 'equipo'))
+    .sort((a, b) => b.seguidores - a.seguidores || b.pts - a.pts);
+
+  if (!escuderias.length) {
+    const escMap = {};
+    pilotos.forEach(p => {
+      if (!escMap[p.equipo]) {
+        escMap[p.equipo] = { nombre: p.equipo, equipo: p.equipo, pts: 0, poles: 0, pilotos: [], puntosCarrera: {} };
+        GP_COLS.forEach(c => { escMap[p.equipo].puntosCarrera[c] = 0; });
+      }
+      escMap[p.equipo].pts += p.total;
+      escMap[p.equipo].poles += p.poles;
+      escMap[p.equipo].pilotos.push(p.piloto);
+      GP_COLS.forEach(c => { escMap[p.equipo].puntosCarrera[c] += p.puntosCarrera[c] || 0; });
+    });
+    escuderias = Object.values(escMap)
+      .map(e => enrichPopularity(e, e.nombre, 'equipo'))
+      .sort((a, b) => b.seguidores - a.seguidores || b.pts - a.pts);
+  }
+
+  const maxFollowers = Math.max(1, ...pilotos.map(p => p.seguidores));
+
+  listEl.innerHTML = pilotos.map((p, i) => `
+    <div class="pop-row">
+      <div class="pop-pos ${i===0?'p1':i===1?'p2':i===2?'p3':''}">${i+1}</div>
+      ${pilotPhotoHTML(p.piloto, 'sz-38')}
+      <div class="pop-info">
+        <div class="pop-name">${p.piloto}</div>
+        <div class="pop-team">${p.equipo}</div>
+        ${p.apodo ? `<div class="pop-apodo">${p.apodo}</div>` : ''}
+        <div class="pop-metrics">
+          <span class="pop-mini-metric">PI <strong>${p.pi}</strong></span>
+          <span class="pop-mini-metric">Seguidores <strong>${formatFollowers(p.seguidores)}</strong></span>
+          <span class="pop-variacion ${deltaClass(p.variacion)}">${formatDelta(p.variacion)}</span>
+        </div>
+      </div>
+      <div class="pop-pts-col">
+        <div class="pop-pts">${formatFollowers(p.seguidores)}</div>
+        <div class="pop-pts-label">seguidores</div>
+        <div style="margin-top:6px;height:3px;width:72px;background:var(--negro-4);border-radius:2px;overflow:hidden">
+          <div style="width:${(p.seguidores/maxFollowers*100).toFixed(1)}%;height:100%;background:var(--verde);border-radius:2px"></div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  const ctx = document.getElementById('pop-chart').getContext('2d');
+  if (appState.popChart) appState.popChart.destroy();
+  appState.popChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: pilotos.map(p => p.piloto.split(' ')[0]),
+      datasets: [{
+        label: 'Seguidores',
+        data: pilotos.map(p => p.seguidores),
+        backgroundColor: pilotos.map((_, i) => CHART_COLORS[i % CHART_COLORS.length] + 'cc'),
+        borderColor: pilotos.map((_, i) => CHART_COLORS[i % CHART_COLORS.length]),
+        borderWidth: 2,
+        borderRadius: 8,
+        borderSkipped: false,
+      }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#181818', borderColor: '#333', borderWidth: 1,
+          titleColor: '#fff', bodyColor: '#aaa', padding: 12,
+          callbacks: { label: c => ` ${formatFollowers(c.parsed.x)} seguidores` },
+        },
+      },
+      scales: {
+        x: { ticks: { color:'#666', font:{family:'DM Sans',size:11}, callback: v => Number(v).toLocaleString('es-ES') }, grid:{color:'#222'} },
+        y: { ticks: { color:'#ccc', font:{family:'DM Sans',size:12} }, grid:{display:false} },
+      },
+    },
+  });
+
+  gridEl.innerHTML = escuderias.map((e, i) => `
+    <div class="pop-escud-card">
+      <div class="pop-escud-header">
+        ${teamLogoHTML(e.nombre, 'sz-42')}
+        <div>
+          <div class="pop-escud-name">${i + 1}. ${e.nombre}</div>
+          <div style="font-size:11px;color:var(--gris-2)">${e.pilotos.join(' · ') || 'Resumen de escuderia'}</div>
+          ${e.apodo ? `<div class="pop-apodo">${e.apodo}</div>` : ''}
+        </div>
+      </div>
+      <div class="pop-escud-pts">${formatFollowers(e.seguidores)}
+        <span style="font-size:14px;color:var(--gris-2);font-family:'DM Sans',sans-serif;font-weight:400">seg.</span>
+      </div>
+      <div class="pop-metrics">
+        <span class="pop-mini-metric">PI <strong>${e.pi}</strong></span>
+        <span class="pop-mini-metric">Pts imagen <strong>${e.pts}</strong></span>
+        <span class="pop-variacion ${deltaClass(e.variacion)}">${formatDelta(e.variacion)}</span>
+      </div>
+    </div>`).join('');
+
+  tbodyEl.innerHTML = pilotos.map((p, i) => `
+    <tr>
+      <td><span class="pos-number ${i===0?'p1':i===1?'p2':i===2?'p3':''}">${i+1}</span></td>
+      <td>
+        <div class="driver-cell">
+          ${pilotPhotoHTML(p.piloto, 'sz-38')}
+          <div>
+            <div class="driver-name">${p.piloto}</div>
+            ${p.apodo ? `<div class="pop-apodo">${p.apodo}</div>` : ''}
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="driver-cell">
+          ${teamLogoHTML(p.equipo, 'sz-38')}
+          <span class="driver-team">${p.equipo}</span>
+        </div>
+      </td>
+      <td><span class="pts-cell">${p.pi}</span></td>
+      <td><span class="pop-seg-num">${formatFollowers(p.seguidores)}</span></td>
+      <td><span class="pop-variacion ${deltaClass(p.variacion)}">${formatDelta(p.variacion)}</span></td>
+    </tr>`).join('');
+
+  const thead = document.querySelector('#pop-table-seguidores thead tr');
+  if (thead) thead.innerHTML = `
+    <th>#</th><th>Piloto</th><th>Equipo</th>
+    <th>PI / Apodo</th><th>Seguidores</th>
+    <th>Variacion${ultimaCarrera ? ' · '+ultimaCarrera : ''}</th>`;
+
+  resolveImages();
+}
 /* ====================================================================
    TABS DE CLASIFICACIÓN
    ==================================================================== */
@@ -2462,14 +2964,18 @@ async function fetchCSV(gid) {
 
 async function fetchAndRender() {
   try {
-    const GID_MAIN     = '1288159029'; // Hoja principal: pilotos + puntos
-    const GID_MEJORAS  = '1991737112'; // Hoja: mejoras técnicas
-    const GID_FINANZAS = '519051423';  // Hoja: Control_Economico ← cambia si es necesario
+    const GID_MAIN        = '1288159029';
+    const GID_MEJORAS     = '1991737112';
+    const GID_FINANZAS    = '519051423';
+    const GID_POPULARIDAD = '1026168335'; // Hoja: Puntos_imagen
+    const GID_VALOR_PI    = '1757638278'; // Hoja: Valor_PI
 
-    const [resMain, resMejoras, resFinanzas] = await Promise.allSettled([
+    const [resMain, resMejoras, resFinanzas, resPopularidad, resValorPI] = await Promise.allSettled([
       fetchCSV(GID_MAIN),
       fetchCSV(GID_MEJORAS),
       fetchCSV(GID_FINANZAS),
+      fetchCSV(GID_POPULARIDAD),
+      fetchCSV(GID_VALOR_PI),
     ]);
 
     // ── CSV principal (obligatorio) ──
@@ -2504,7 +3010,31 @@ async function fetchAndRender() {
       appState.finanzasData = [];
     }
 
-    renderInicio();
+    // CSV popularidad (no critico)
+    if (resPopularidad.status === 'fulfilled') {
+      const { rows: r } = parseCSV(resPopularidad.value);
+      appState.popularidadData = r.filter(row => {
+        const keys = Object.keys(row);
+        const equipo = (row[keys[0]] || '').trim();
+        const piloto = (row[keys[1]] || '').trim();
+        const hasAnyValue = keys.slice(2).some(k => String(row[k] || '').trim() !== '');
+        return equipo && (piloto || hasAnyValue);
+      });
+      console.log('[Paddock OS] Popularidad:', appState.popularidadData.length, 'filas');
+    } else {
+      console.warn('[Paddock OS] Popularidad no disponible');
+      appState.popularidadData = [];
+    }
+
+    // CSV Valor_PI (seguidores y variacion; no critico)
+    if (resValorPI.status === 'fulfilled') {
+      appState.valorPiData = parseValorPI(resValorPI.value);
+      console.log('[Paddock OS] Valor_PI:', appState.valorPiData.length, 'filas');
+    } else {
+      console.warn('[Paddock OS] Valor_PI no disponible');
+      appState.valorPiData = [];
+    }
+renderInicio();
     document.getElementById('loading-overlay').classList.add('hidden');
 
   } catch (err) {
