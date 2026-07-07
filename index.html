@@ -1774,13 +1774,14 @@ function resolveImages() {
       if (span) span.style.display = 'none';
       // Añadir imagen
       img.style.cssText = 'display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%';
-      if (tipo === 'equipo') {
-        img.style.objectFit    = 'contain';
-        img.style.objectPosition = 'center';
-        img.style.padding      = '3px';
-        img.style.background   = 'var(--negro-3)';
-        img.style.borderRadius = '50%';
-      }
+if (tipo === 'equipo') {
+  img.style.objectFit    = 'contain';
+  img.style.objectPosition = 'center';
+  img.style.padding      = '3px';
+  img.style.background   = 'var(--negro-3)';
+  img.style.borderRadius = '50%';
+  img.style.transform    = 'scale(1.5)';   // 👈 añade esta línea, ajusta el valor
+}
       img.alt = src;
       wrap.appendChild(img);
       // Limpiar data attributes para no reprocesar
